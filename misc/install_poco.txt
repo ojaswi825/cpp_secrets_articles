@@ -1,0 +1,118 @@
+How to install Poco C++ libraries on Ubuntu (Linux)?
+
+The Poco C++ Libraries are powerful cross-platform C++ libraries for building network- and internet-based applications that run on desktop, server, mobile, IoT, and embedded systems.
+The Poco C++ libraries are cross-platform are designed to be Scalable, Modular, Robust and Easy to use.
+
+To know more about Poco C++ libraries see: https://pocoproject.org/
+
+Now let's begin installing Poco libraries in Ubuntu:
+
+Step 1: Start a terminal session (launch terminal) by Ctrl + Alt + T.
+
+Step 2: Install essential dependencies and git, execute the following commands one by one:
+
+$ sudo apt upadate
+$ sudo apt upgrade
+$ sudo apt install build-essential gdb cmake git
+
+
+Step 3: Install necessary dependencies,  execute the following commands one by one:
+
+$ sudo apt-get install openssl libssl-dev
+$ sudo apt-get install libiodbc2 libiodbc2-dev
+$ sudo apt-get install libmysqlclient-dev
+$ sudo apt-get install libpq-dev
+
+
+Step 4: Get root access:
+
+$ sudo -i
+
+enter your Ubuntu password.
+
+Step 5: Navigate to /tmp/ directory (or any other directory to store temporary files).
+
+$ cd /tmp/
+
+
+Step 6: Clone the Poco git repo:
+
+$ git clone -b master https://github.com/pocoproject/poco.git
+
+
+Step 7: Compile the libraries:
+
+$ cd poco
+$ mkdir cmake-build
+$ cd cmake-build
+$ cmake ..
+$ cmake --build . --config Release
+
+Note: If you get a library not found error, just install that library via apt.
+
+Step 8: Install the libraries to include in C++ code:
+
+$ sudo cmake --build . --target install
+
+
+The libraries will be installed at /usr/local/include/
+
+Step 9: Test the installation:
+
+A) Copy the following code in a text editor and save it as pocoTest.cpp
+
+#include<iostream>
+#include<Poco/HashSet.h>
+
+int main(void) {
+
+    Poco::HashSet<int> hs;
+
+    hs.insert(5);
+    hs.insert(7);
+    hs.insert(4);
+    hs.insert(8);
+    hs.insert(9);
+
+    for (auto& i: hs) {
+        std::cout << i << " ";
+    }
+ 
+    std::cout << endl;
+
+    return 0;
+}
+
+
+B) Compile and run:
+
+$ g++ pocoTest.cpp -o pocoTest
+$ ./pocoTest
+
+
+The output should be:
+
+8 9 7 4 5
+
+
+Step 10: A brief look on installation:
+A) Navigate to /usr/local/include
+
+$ cd /usr/local/include
+
+
+You will find Poco directory here. Go to Poco directory.
+
+$ cd Poco/
+
+
+Here you will find a file named HashSet.h
+
+The g++ compiler looks for libraries in include folder by default. So we have to explicitly mention the relative path of libraries we want to use.
+That  is why we have used "#include<Poco/HashSet.h>" instead of just "#include<HashSet.h>"
+Look for the path of header file you want to use in Poco directory or reference website mentioned at the top.
+We also have to look for the namespaces like Poco::HashSet mentioned in the above program.
+
+Now you can start your development using the Poco C++ libraries.
+For official documentation, see: https://pocoproject.org/documentation.html
+For libraries reference, see: https://pocoproject.org/docs/
