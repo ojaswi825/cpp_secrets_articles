@@ -1,0 +1,51 @@
+The Poco C++ library has been around for a while now. Poco includes various libraries for building network-based and internet-based applications that run on desktop, server, mobile, IoT, and embedded systems. Equipped with latest industry standard libraries it is being seen as a competitor for boost libraries.
+If you want to install and try Poco C++ follow this guide:
+http://www.shorturl.at/pwJ49
+
+Here we will explore Poco::Zip namespace and use Poco::Zip::Compress to compress files inside a zip.
+
+To compress a file inside a zip using Poco::Zip::Compress follow these steps:
+
+Step 1: Create a new directory and copy all files to be zipped in this directory.
+Example: I have created a directory named to_zip and copied two files that I want to add to zip:
+    file1.txt
+    file2.txt
+
+Step 2: Go inside that directory (cd).
+
+Step 3: Create a file named compress.cpp copy the code below. Explanation is given below the code.
+
+
+Explanation:
+
+The header files are pretty self explanatory, still if you want a brief overview go to this article http://www.shorturl.at/pwJ49 and scroll to bottom you will find info about include paths
+
+line 15: Creates an output file stream of name <zipName>(line 12). The format is used binary for zip files (the std::ios::binary arg).
+line 16: Creates a compressor object out of the output stream created in line 15. Second arg is seekableOut (set to true for small and local files).
+
+line 19 and 20: Creates Poco::File objects that is compatible with our Poco::Zip::Compress object (line 16). I have used my files that I mentioned earlier (see Step 1).
+
+line 23 and 24: Creates Poco::Path objects that will be used later. 
+
+line 28 and 37: Checks if the file is a directory, if it is then the file is ignored else it is added to the Poco::Zip::Compress compressor (line 16).
+
+line 33 and 42: The addFile() method adds the file using their Poco::Path objects (line 23 and 24).
+
+line 46: Finalizes the zip and closes the compressor object (line 16).
+line 47: Closes the output file stream (line 15).
+
+Warning: the out (ofstream obj, line 15) must be closed only after the compressor(line 16) has been closed.
+
+Step 4: Compile the cpp file and run.
+
+g++ compress.cpp -o compress -lPocoFoundation -lPocoZip
+./compress
+
+The -l flags tells g++ to link those libraries.
+Warning: the -lPocoFoundation should be used before -lPocoZip for proper linking.
+
+Step 5: Extract and test the files. Use any file extractor like 7Zip or Windows zip to extract and test your files.
+
+Notes:
+
+The Poco::File and Poco::Path are under PocoFoundation lib.
