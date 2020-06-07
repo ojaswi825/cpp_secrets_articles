@@ -1,0 +1,36 @@
+The Poco C++ library has been around for a while now. Poco includes various libraries for building network-based and internet-based applications that run on desktop, server, mobile, IoT, and embedded systems. Equipped with latest industry standard libraries it is being seen as a competitor for boost libraries.
+
+If you want to install and try Poco C++ follow this guide: http://www.shorturl.at/pwJ49
+
+Here we will explore Poco::Data namespace and use Poco::Data::SQLite to create, insert and read data from a SQLite Database.
+
+Step 1: Create a new sample database in SQLite3
+$sqlite3 sample.db
+
+Step 2: Create a new file named sqlite_demo.cpp and copy the code below:
+
+Explanation:
+
+line 1 and 2: Includes necessary libraries.
+
+line 20: Registers a SQLite connector(! important).
+
+line 23: Creates a new session using the database file we created (in the same directory as this file). The session variable is a stream object to execute statements in the database.
+
+line 29: Creates a new table using session object created earlier(line 23).
+
+line 39: Creates a "Statement" object using the current session. The insert object is also a stream.
+
+line 40 to 43: Put an insert statement in the insert stream.
+
+line 51: Executes the insert statement.
+
+line 47 to 49: Used same person stuct.
+
+line 54: Creates a select statement stream.
+
+line 61 to 65: Executes select statement until nothing remains for output.
+
+Step 3: Compile and run:
+$g++ sqlite_demo.cpp -o sqlite_demo -lPocoFoundation -lPocoData -lPocoDataSQLite
+$./sqlite_demo

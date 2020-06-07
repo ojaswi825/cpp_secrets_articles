@@ -1,0 +1,38 @@
+The Poco C++ library has been around for a while now. Poco includes various libraries for building network-based and internet-based applications that run on desktop, server, mobile, IoT, and embedded systems. Equipped with latest industry standard libraries it is being seen as a competitor for boost libraries.
+If you want to install and try Poco C++ follow this guide:
+http://www.shorturl.at/pwJ49
+
+Here we will explore Poco::Zip namespace and use Poco::Zip::Decompress to decompress a zip archive and extract its contents.
+
+If you want to know how to compress files using Poco C++ libraries, follow this guide:
+http://www.shorturl.at/nzCHR
+
+I have used the zip file created in above example (follow link just above).
+
+Step 1: Create a file named decompress.cpp copy the code below. Explanation is given below the code.
+
+Explanation:
+
+The header files are pretty self explanatory, still if you want a brief overview go to this article http://www.shorturl.at/pwJ49 and scroll to bottom you will find info about include paths.
+
+line 13: Creates a Poco::Path object with path to current directory. More constructors and other info can be found here: https://pocoproject.org/docs/Poco.Path.html
+line 14: Adds a new directory named "test" to our current Path object (line 13).
+
+line 17: Creates an input file stream of name <zipName>(line 12). The format is used binary for zip files (the std::ios::binary arg).
+line 18: Creates a compressor object out of the output stream created in line 15. Second arg is the Poco::Path object created earlier (line 13 & 14).
+
+line 21: Decompresses all the file in the path provided (line 14) in Poco::Zip::Decompress object (line 18).
+
+Step 2: Compile the cpp file and run:
+
+g++ decompress.cpp -o decompress -lPocoFoundation -lPocoZip
+./decompress
+
+The -l flags tells g++ to link those libraries.
+Warning: the -lPocoFoundation should be used before -lPocoZip for proper linking.
+
+The files will be extracted in a newly created directory "test" (see line 14 in code).
+
+Notes:
+
+The Poco::Path are under PocoFoundation lib.
